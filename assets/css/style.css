@@ -1,6 +1,6 @@
 @charset "UTF-8";
 /*!
- * Name: Basis v4.3.0
+ * Name: Basis v4.3.1
  * Description: The flexbox based CSS framework.
  * Author: Takashi Kitajima ( inc2734 )
  * Author URL: http://2inc.org
@@ -3444,13 +3444,13 @@ textarea._c-form-control {
   clear: both;
 }
 
-@media (max-width: 39.92857em) {
+@media (max-width: 39.9375em) {
   ._u-hidden-sm {
     display: none !important;
   }
 }
 
-@media (min-width: 40em) and (max-width: 63.92857em) {
+@media (min-width: 40em) and (max-width: 63.9375em) {
   ._u-hidden-md {
     display: none !important;
   }
@@ -3462,37 +3462,37 @@ textarea._c-form-control {
   }
 }
 
-@media (max-width: 39.92857em) {
+@media (max-width: 39.9375em) {
   ._u-visible-sm-inline {
     display: inline !important;
   }
 }
 
-@media (max-width: 39.92857em) {
+@media (max-width: 39.9375em) {
   ._u-visible-sm-inline-block {
     display: inline-block !important;
   }
 }
 
-@media (max-width: 39.92857em) {
+@media (max-width: 39.9375em) {
   ._u-visible-sm-block {
     display: block !important;
   }
 }
 
-@media (min-width: 40em) and (max-width: 63.92857em) {
+@media (min-width: 40em) and (max-width: 63.9375em) {
   ._u-visible-md-inline {
     display: inline !important;
   }
 }
 
-@media (min-width: 40em) and (max-width: 63.92857em) {
+@media (min-width: 40em) and (max-width: 63.9375em) {
   ._u-visible-md-inline-block {
     display: inline-block !important;
   }
 }
 
-@media (min-width: 40em) and (max-width: 63.92857em) {
+@media (min-width: 40em) and (max-width: 63.9375em) {
   ._u-visible-md-block {
     display: block !important;
   }
