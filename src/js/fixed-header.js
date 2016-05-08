@@ -18,6 +18,7 @@ export default class BasisFixedHeader {
 
 		this.container = document.querySelector(container);
 		this.header    = document.querySelector(this.params.header);
+		this.setHeaderWidth();
 		this.setListener();
 	}
 
@@ -30,5 +31,16 @@ export default class BasisFixedHeader {
 				this.header.classList.remove(this.params.class);
 			}
 		}, false);
+
+		window.addEventListener('resize', (event) => {
+			this.setHeaderWidth();
+		}, false);
+	}
+
+	setHeaderWidth() {
+		const scrollbarWidth = document.body.clientWidth - this.container.clientWidth;
+		if (scrollbarWidth > 0) {
+			this.header.style.width = 'calc(100% - ' + scrollbarWidth + 'px)';
+		}
 	}
 }
