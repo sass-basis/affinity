@@ -1,0 +1,26 @@
+language: node_js
+sudo: false
+node_js:
+  - '4.2'
+branches:
+  only:
+    - master
+    - develop
+env:
+  global:
+    - GIT_COMMITTER_NAME=travis-ci
+    - GIT_COMMITTER_EMAIL=inc@2inc.org
+    - GIT_AUTHOR_NAME=travis-ci
+    - GIT_AUTHOR_EMAIL=inc@2inc.org
+    - secure: "BrC8xRpaeVSPn0nRxkd2D3eLa+CJzgHcjK4hpw24wPv8Je1GOYMl9n2SoHqx+x+InFvJdMjHSp1NdpmPx31BRfvoNxusInIXpnpw74JeMWk80fWPGhCdIycoKgTUd7DxZEZuJVjpNZOqrY5QRGupe5dBJ5Opffan1+32W75ybdQr3o6xV1hefanWoDNhY1yX0tt0xDd5SoPCJCUv1jEgVs9eSp44/Pkz/8C5pspEAuv6fLQ4lkuYfew6DvCJA5H4K1w2cYOQ4XsFwXkLdhdmKK1rr66mHyEMhpW+sVAw//DiEtP4PtjqfJGmtJ/2VtE6qjM7khB37l2C/nScJVrfhk8FANwbKa3/IA90dpVrVQVlec/y9l0zBsxp+Cw+7eBR8HxML9VUM6NSDKqo3oRbbJ6nvXJAdJBczjpAaoQOfYTF5eF4k3OS3qaeGa7fHnMwaTUX2oiqqX0DAu4WEbFTmgDcNGJks8oRKQKrmhQKrqrq+JP9ZgZnYtPA8lLQGJn+8zs610vV40jic5pcqeg8vhrzNFnIzxW87Aa5sPAT7TbL6mXJK3jnIfFgdua3ciLl40Dlc4wrsD7DZwXIOG1/pV8gC5ba+3lCLVLB38/txtyPILehHqglIGEyGSmETwNi4UDlftBX/PZjcBQW/WHhIAK4BgHK+v8Cv5wPUrZh09o="
+before_script:
+  - git clone -b gh-pages --quiet https://github.com/sass-basis/affinity.git gh-pages
+script:
+  - cd gh-pages
+  - ls | xargs rm -rf
+  - rm -f .gitignore
+  - rm -f .travis.yml
+  - cd ../
+  - npm run deploy_gh_pages
+after_success:
+  - bash ./bin/deploy.sh

@@ -1,0 +1,8 @@
+.#{$bs-prefix}l-main {
+	> .c-section {
+		&:first-child {
+			padding-top: 0;
+			border-top: none;
+		}
+	}
+}

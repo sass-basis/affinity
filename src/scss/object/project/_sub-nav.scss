@@ -1,0 +1,29 @@
+.p-sub-nav {
+	&__title {
+		@include bs-font-size-line-height($bs-font-size * 1.5);
+		@include bs-margin-bottom(1);
+		padding: 0;
+	}
+
+	&__list {
+		margin: 0;
+		padding: 0;
+		list-style: none;
+		border-top: 1px solid bs-lighter($bs-color-gray);
+	}
+
+	&__item {
+		margin: 0;
+		padding: ($bs-base-line-height / 2) 0;
+		border-bottom: 1px solid bs-lighter($bs-color-gray);
+
+		> a {
+			color: $bs-color-text;
+			text-decoration: none;
+
+			@include bs-hover() {
+				text-decoration: underline;
+			}
+		}
+	}
+}
