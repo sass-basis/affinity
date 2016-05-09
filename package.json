@@ -24,6 +24,7 @@
   },
   "dependencies": {
     "sass-basis": "^4.3.1",
+    "sass-basis-card": "^0.1.0",
     "sass-basis-drawer": "^0.1.1",
     "sass-basis-hamburger-btn": "^0.1.0",
     "sass-basis-layout": "^0.1.1"
