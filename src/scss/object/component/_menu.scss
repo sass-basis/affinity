@@ -7,6 +7,7 @@
 	list-style: none;
 
 	&__item {
+		position: relative;
 		margin: 0 0 0 $bs-base-line-height;
 		padding: 0;
 		display: inline;
@@ -19,6 +20,51 @@
 
 		> a {
 			display: inline-block;
+		}
+
+		@include bs-hover() {
+			> .#{$bs-prefix}c-menu__submenu {
+				visibility: visible;
+				opacity: 1;
+			}
+		}
+	}
+
+	&__submenu {
+		position: absolute;
+		top: 100%;
+		left: 0;
+		visibility: hidden;
+		min-width: 200px;
+		margin: 0;
+		padding: 0;
+		list-style: none;
+		opacity: 0;
+		transition: opacity $bs-transition-duration $bs-transition-function-timing;
+	}
+
+	&__subitem {
+		position: relative;
+		margin: 0;
+		padding: 0;
+
+		> a {
+			display: block;
+			padding: (($bs-base-line-height - $bs-between-lines) / 2) ($bs-base-line-height / 2);
+			text-align: center;
+			text-decoration: none;
+		}
+
+		.#{$bs-prefix}c-menu__submenu {
+			top: 0;
+			left: 100%;
+		}
+
+		@include bs-hover() {
+			> .#{$bs-prefix}c-menu__submenu {
+				visibility: visible;
+				opacity: 1;
+			}
 		}
 	}
 
