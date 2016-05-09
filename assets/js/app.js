@@ -186,6 +186,76 @@ exports.default = BasisFixedHeader;
 },{}],3:[function(require,module,exports){
 'use strict';
 
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var BasisMenu = function () {
+	function BasisMenu(container, params) {
+		_classCallCheck(this, BasisMenu);
+
+		if (!container) {
+			container = '._c-menu';
+		}
+		if (!params) {
+			params = {};
+		}
+		this.params = params;
+
+		this.container = document.querySelectorAll(container);
+		this.setListener();
+	}
+
+	_createClass(BasisMenu, [{
+		key: 'setListener',
+		value: function setListener() {
+			var _this = this;
+
+			for (var i = 0; i < this.container.length; i++) {
+				var container = this.container[i];
+
+				var has_submenus = container.querySelectorAll('[aria-expanded]');
+
+				var _loop = function _loop(_i) {
+					var item = has_submenus[_i];
+					item.addEventListener('mouseover', function (event) {
+						_this.open(item);
+					}, false);
+
+					item.addEventListener('mouseleave', function (event) {
+						_this.close(item);
+					}, false);
+				};
+
+				for (var _i = 0; _i < has_submenus.length; _i++) {
+					_loop(_i);
+				}
+			}
+		}
+	}, {
+		key: 'open',
+		value: function open(item) {
+			item.setAttribute('aria-expanded', 'true');
+		}
+	}, {
+		key: 'close',
+		value: function close(item) {
+			item.setAttribute('aria-expanded', 'false');
+		}
+	}]);
+
+	return BasisMenu;
+}();
+
+exports.default = BasisMenu;
+
+},{}],4:[function(require,module,exports){
+'use strict';
+
 var _drawer = require('../../node_modules/sass-basis-drawer/src/js/drawer.js');
 
 var _drawer2 = _interopRequireDefault(_drawer);
@@ -194,11 +264,16 @@ var _fixedHeader = require('../../node_modules/sass-basis-layout/src/js/fixed-he
 
 var _fixedHeader2 = _interopRequireDefault(_fixedHeader);
 
+var _menu = require('../../node_modules/sass-basis-menu/src/js/menu.js');
+
+var _menu2 = _interopRequireDefault(_menu);
+
 function _interopRequireDefault(obj) {
   return obj && obj.__esModule ? obj : { default: obj };
 }
 
-new _drawer2.default('._c-drawer');
+new _drawer2.default();
 new _fixedHeader2.default();
+new _menu2.default();
 
-},{"../../node_modules/sass-basis-drawer/src/js/drawer.js":1,"../../node_modules/sass-basis-layout/src/js/fixed-header.js":2}]},{},[3]);
+},{"../../node_modules/sass-basis-drawer/src/js/drawer.js":1,"../../node_modules/sass-basis-layout/src/js/fixed-header.js":2,"../../node_modules/sass-basis-menu/src/js/menu.js":3}]},{},[4]);

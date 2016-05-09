@@ -3603,7 +3603,6 @@ body {
 }
 
 ._l-header {
-  padding: 1.3rem 0;
   transition: background-color 0.1s ease-out, color 0.1s ease-out;
 }
 
@@ -3617,6 +3616,10 @@ body {
 
 ._l-header > ._c-container {
   position: relative;
+}
+
+._l-header .p-site-branding {
+  padding: 1.3rem 0;
 }
 
 ._l-header ._c-hamburger-btn {
@@ -3799,6 +3802,111 @@ body {
   padding: 1.3rem 2.6rem;
 }
 
+._c-menu {
+  margin: 0;
+  padding: 0;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-flex-wrap: nowrap;
+  -ms-flex-wrap: nowrap;
+  flex-wrap: nowrap;
+  list-style: none;
+}
+
+._c-menu__item {
+  position: relative;
+  margin: 0 0 0 2.6rem;
+  padding: 0;
+  display: inline;
+  max-width: 100%;
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+}
+
+._c-menu__item:first-child {
+  margin-left: 0;
+}
+
+._c-menu__item > a {
+  display: inline-block;
+}
+
+._c-menu__item:hover > ._c-menu__submenu, ._c-menu__item:focus > ._c-menu__submenu {
+  visibility: visible;
+  opacity: 1;
+}
+
+._c-menu__submenu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  visibility: hidden;
+  min-width: 200px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  opacity: 0;
+  transition: opacity 0.1s ease-out;
+}
+
+._c-menu__subitem {
+  position: relative;
+  margin: 0;
+  padding: 0;
+}
+
+._c-menu__subitem > a {
+  display: block;
+  padding: 1rem 1.3rem;
+  text-align: center;
+  text-decoration: none;
+}
+
+._c-menu__subitem ._c-menu__submenu {
+  top: 0;
+  left: 100%;
+}
+
+._c-menu__subitem:hover > ._c-menu__submenu, ._c-menu__subitem:focus > ._c-menu__submenu {
+  visibility: visible;
+  opacity: 1;
+}
+
+._c-menu--bar ._c-menu__item {
+  margin: 0;
+  padding: 0;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+._c-menu--bar ._c-menu__item > a {
+  padding: 2.3rem 1.3rem;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  width: 100%;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  text-align: center;
+  text-decoration: none;
+}
+
+._c-menu--auto ._c-menu__item {
+  -webkit-flex: 0 1 auto;
+  -ms-flex: 0 1 auto;
+  flex: 0 1 auto;
+}
+
 .c-item {
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -3976,72 +4084,16 @@ body {
   text-decoration: none;
 }
 
-.p-global-nav__menu {
-  margin: 0;
-  padding: 0;
+.p-global-nav ._c-menu__submenu {
+  background-color: rgba(17, 17, 17, 0.8);
 }
 
-.p-global-nav__menu > a {
-  display: block;
-  font-size: 14px;
-  font-size: 1.4rem;
-  line-height: 1.85714;
-  text-decoration: none;
+.p-global-nav ._c-menu__subitem:hover, .p-global-nav ._c-menu__subitem:focus {
+  background-color: rgba(255, 255, 255, 0.05);
 }
 
-.p-global-nav__menus {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-.p-global-nav--inline .p-global-nav__menus {
-  margin: 0 -2.6rem 0 0;
-}
-
-.p-global-nav--inline .p-global-nav__menus > .p-global-nav__menu {
-  display: inline-block;
-  margin-right: 2.6rem;
-}
-
-.p-global-nav--block .p-global-nav__menus {
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex-wrap: nowrap;
-  -ms-flex-wrap: nowrap;
-  flex-wrap: nowrap;
-  border-left: 1px solid #f7f7f7;
-}
-
-.p-global-nav--block .p-global-nav__menus > .p-global-nav__menu {
-  -webkit-flex: 1;
-  -ms-flex: 1;
-  flex: 1;
-  max-width: 100%;
-  border-right: 1px solid #f7f7f7;
-}
-
-.p-global-nav--block .p-global-nav__menus > .p-global-nav__menu > a {
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  text-align: center;
-  height: 5.2rem;
-  padding: 1.3rem 2.6rem;
-  -webkit-align-items: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-}
-
-.p-global-nav--block .p-global-nav__menus > .p-global-nav__menu > a > span {
-  -webkit-flex: 1;
-  -ms-flex: 1;
-  flex: 1;
-  max-width: 100%;
+._l-header--is-scrolled .p-global-nav ._c-menu__item:hover, ._l-header--is-scrolled .p-global-nav ._c-menu__item:focus {
+  background-color: rgba(255, 255, 255, 0.05);
 }
 
 .p-hero {
