@@ -22,12 +22,22 @@
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.1.0"
   },
-  "Dependencies": {
+  "dependencies": {
     "sass-basis": "^4.3.1",
-    "sass-basis-layout": "^0.1.0"
+    "sass-basis-layout": "^0.1.0",
+    "sass-basis-drawer": "^0.1.0"
   },
   "browserify": {
-    "transform": [["babelify", { "presets": ["es2015"] }]]
+    "transform": [
+      [
+        "babelify",
+        {
+          "presets": [
+            "es2015"
+          ]
+        }
+      ]
+    ]
   },
   "scripts": {
     "deploy_gh_pages": "gulp deploy_gh_pages"
