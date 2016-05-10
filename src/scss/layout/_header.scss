@@ -10,7 +10,7 @@
 		background-color: rgba($bs-color-black, .8);
 	}
 
-	> ._c-container {
+	> .#{$bs-prefix}c-container {
 		position: relative;
 	}
 
@@ -18,7 +18,7 @@
 		padding: ($bs-base-line-height / 2) 0;
 	}
 
-	._c-hamburger-btn {
+	.#{$bs-prefix}c-hamburger-btn {
 		position: absolute;
 		top: 50%;
 		right: $bs-base-line-height;

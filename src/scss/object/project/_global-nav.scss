@@ -1,9 +1,9 @@
 .p-global-nav {
-	._c-menu__submenu {
+	.#{$bs-prefix}c-menu__submenu {
 		background-color: rgba($bs-color-black, .8);
 	}
 
-	._c-menu__subitem {
+	.#{$bs-prefix}c-menu__subitem {
 		@include bs-hover() {
 			background-color: rgba(#fff, .05);
 		}
@@ -12,7 +12,7 @@
 
 .#{$bs-prefix}l-header--is-scrolled {
 	.p-global-nav {
-		._c-menu__item {
+		.#{$bs-prefix}c-menu__item {
 			@include bs-hover() {
 				background-color: rgba(#fff, .05);
 			}
