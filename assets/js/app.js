@@ -26,6 +26,9 @@ var BasisDrawer = function () {
 		if (!this.params.btn) {
 			this.params.btn = '._c-drawer__btn';
 		}
+		if (!this.params.toggleSubmenus) {
+			this.params.toggleSubmenus = '._c-drawer__toggle';
+		}
 
 		this.container = document.querySelectorAll(container);
 		this.setListener();
@@ -43,6 +46,7 @@ var BasisDrawer = function () {
 
 				container.addEventListener('click', function (event) {
 					_this.close(drawer);
+					btn.classList.remove('is-close');
 				}, false);
 
 				drawer.addEventListener('click', function (event) {
@@ -50,7 +54,7 @@ var BasisDrawer = function () {
 				}, false);
 
 				btn.addEventListener('click', function (event) {
-					_this.toggle(drawer);
+					_this.toggleDrawer(drawer);
 					event.stopPropagation();
 				}, false);
 
@@ -61,15 +65,11 @@ var BasisDrawer = function () {
 				var has_submenus = drawer.querySelectorAll('[aria-expanded]');
 
 				var _loop2 = function _loop2(_i) {
-					var element = has_submenus[_i].children;
-					for (var j = 0; j < element.length; j++) {
-						if (element[j].tagName.toUpperCase() == 'A') {
-							element[j].addEventListener('click', function (event) {
-								_this.toggle(has_submenus[_i]);
-								event.stopPropagation();
-							}, false);
-						}
-					}
+					var toggleSubmenus = has_submenus[_i].querySelector(_this.params.toggleSubmenus);
+					toggleSubmenus.addEventListener('click', function (event) {
+						_this.toggleSubmenus(has_submenus[_i]);
+						event.stopPropagation();
+					}, false);
 				};
 
 				for (var _i = 0; _i < has_submenus.length; _i++) {
@@ -82,19 +82,35 @@ var BasisDrawer = function () {
 			}
 		}
 	}, {
-		key: 'toggle',
-		value: function toggle(drawer) {
+		key: 'toggleDrawer',
+		value: function toggleDrawer(drawer) {
 			event.preventDefault();
-			var btn = container.querySelector(this.params.btn);
-			if (drawer.getAttribute('aria-expanded') === 'false') {
-				this.open(drawer);
-				btn.classList.add('is-close');
+			for (var i = 0; i < this.container.length; i++) {
+				var _btn = this.container[i].querySelector(this.params.btn);
+				if (drawer.getAttribute('aria-expanded') === 'false') {
+					this.open(drawer);
+					_btn.classList.add('is-close');
+				} else {
+					this.close(drawer);
+					_btn.classList.remove('is-close');
+					var _has_submenus = drawer.querySelectorAll('[aria-expanded]');
+					for (var _i2 = 0; _i2 < _has_submenus.length; _i2++) {
+						this.close(_has_submenus[_i2]);
+					}
+				}
+			}
+		}
+	}, {
+		key: 'toggleSubmenus',
+		value: function toggleSubmenus(submenus) {
+			event.preventDefault();
+			if (submenus.getAttribute('aria-expanded') === 'false') {
+				this.open(submenus);
 			} else {
-				this.close(drawer);
-				btn.classList.remove('is-close');
-				var _has_submenus = drawer.querySelectorAll('[aria-expanded]');
-				for (var i = 0; i < _has_submenus.length; i++) {
-					this.close(_has_submenus[i]);
+				this.close(submenus);
+				var _has_submenus2 = submenus.querySelectorAll('[aria-expanded]');
+				for (var i = 0; i < _has_submenus2.length; i++) {
+					this.close(_has_submenus2[i]);
 				}
 			}
 		}
@@ -116,10 +132,14 @@ var BasisDrawer = function () {
 exports.default = BasisDrawer;
 
 },{}],2:[function(require,module,exports){
+/**
+ * IF "disable-window-scroll", to set the intended header width.
+ */
+
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
-	value: true
+  value: true
 });
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -127,63 +147,153 @@ var _createClass = function () { function defineProperties(target, props) { for 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var BasisFixedHeader = function () {
-	function BasisFixedHeader(container, params) {
-		_classCallCheck(this, BasisFixedHeader);
+  function BasisFixedHeader(container, params) {
+    var _this = this;
 
-		if (!container) {
-			container = '._l-container';
-		}
-		if (!params) {
-			params = {};
-		}
-		this.params = params;
-		if (!this.params.header) {
-			this.params.header = '._l-header';
-		}
-		if (!this.params.class) {
-			this.params.class = '_l-header--is-scrolled';
-		}
+    _classCallCheck(this, BasisFixedHeader);
 
-		this.container = document.querySelector(container);
-		this.header = document.querySelector(this.params.header);
-		this.setHeaderWidth();
-		this.setListener();
-	}
+    if (!container) {
+      container = '._l-container';
+    }
 
-	_createClass(BasisFixedHeader, [{
-		key: 'setListener',
-		value: function setListener() {
-			var _this = this;
+    this.params = this.setParams(params);
+    this.container = document.querySelector(container);
+    this.header = document.querySelector(this.params.header);
+    this.isDisableWindowScroll = document.getElementsByTagName('html')[0].classList.contains('_disable-window-scroll');
 
-			this.container.addEventListener('scroll', function (event) {
-				var scroll = container.scrollTop;
-				if (scroll > 0) {
-					_this.header.classList.add(_this.params.class);
-				} else {
-					_this.header.classList.remove(_this.params.class);
-				}
-			}, false);
+    if (this.shouldSetHeaderWidth()) {
+      this.setHeaderWidth();
 
-			window.addEventListener('resize', function (event) {
-				_this.setHeaderWidth();
-			}, false);
-		}
-	}, {
-		key: 'setHeaderWidth',
-		value: function setHeaderWidth() {
-			var scrollbarWidth = document.body.clientWidth - this.container.clientWidth;
-			if (scrollbarWidth > 0) {
-				this.header.style.width = 'calc(100% - ' + scrollbarWidth + 'px)';
-			}
-		}
-	}]);
+      window.addEventListener('resize', function (event) {
+        _this.setHeaderWidth();
+      }, false);
+    }
+  }
 
-	return BasisFixedHeader;
+  _createClass(BasisFixedHeader, [{
+    key: 'setParams',
+    value: function setParams(params) {
+      if (!params) {
+        params = {};
+      }
+      if (!params.header) {
+        params.header = '._l-header';
+      }
+      return params;
+    }
+  }, {
+    key: 'shouldSetHeaderWidth',
+    value: function shouldSetHeaderWidth() {
+      var position = document.defaultView.getComputedStyle(this.header, null).position;
+      if (position === 'fixed' && this.isDisableWindowScroll) {
+        return true;
+      }
+      return false;
+    }
+  }, {
+    key: 'setHeaderWidth',
+    value: function setHeaderWidth() {
+      var scrollbarWidth = document.body.clientWidth - this.container.clientWidth;
+      if (scrollbarWidth > 0) {
+        this.header.style.width = 'calc(100% - ' + scrollbarWidth + 'px)';
+      }
+    }
+  }]);
+
+  return BasisFixedHeader;
 }();
 
 exports.default = BasisFixedHeader;
 
 },{}],3:[function(require,module,exports){
+/**
+ * This is for the overlay header.
+ * If scroll the page, added a class "is-scrolled".
+ */
+
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var BasisOverlayHeader = function () {
+  function BasisOverlayHeader(container, params) {
+    _classCallCheck(this, BasisOverlayHeader);
+
+    if (!container) {
+      container = '._l-container';
+    }
+
+    this.params = this.setParams(params);
+    this.container = document.querySelector(container);
+    this.header = document.querySelector(this.params.header);
+    this.isDisableWindowScroll = document.getElementsByTagName('html')[0].classList.contains('_disable-window-scroll');
+
+    this.setListener();
+  }
+
+  _createClass(BasisOverlayHeader, [{
+    key: 'setParams',
+    value: function setParams(params) {
+      if (!params) {
+        params = {};
+      }
+      if (!params.header) {
+        params.header = '._l-header--overlay';
+      }
+      if (!params.class) {
+        params.class = '_l-header--is-scrolled';
+      }
+      return params;
+    }
+  }, {
+    key: 'setListener',
+    value: function setListener() {
+      var _this = this;
+
+      var target = this.getScrollTarget();
+
+      target.addEventListener('scroll', function (event) {
+        var scroll = _this.getScrollTop();
+        if (scroll > 0) {
+          _this.header.classList.add(_this.params.class);
+        } else {
+          _this.header.classList.remove(_this.params.class);
+        }
+      }, false);
+    }
+  }, {
+    key: 'getScrollTarget',
+    value: function getScrollTarget() {
+      if (this.isDisableWindowScroll) {
+        return this.container;
+      } else {
+        return window;
+      }
+    }
+  }, {
+    key: 'getScrollTop',
+    value: function getScrollTop() {
+      var target = this.getScrollTarget();
+      if (this.isDisableWindowScroll) {
+        return this.container.scrollTop;
+      } else {
+        return window.pageYOffset;
+      }
+    }
+  }]);
+
+  return BasisOverlayHeader;
+}();
+
+exports.default = BasisOverlayHeader;
+
+},{}],4:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -253,7 +363,7 @@ var BasisMenu = function () {
 
 exports.default = BasisMenu;
 
-},{}],4:[function(require,module,exports){
+},{}],5:[function(require,module,exports){
 'use strict';
 
 var _drawer = require('../../node_modules/sass-basis-drawer/src/js/drawer.js');
@@ -263,6 +373,10 @@ var _drawer2 = _interopRequireDefault(_drawer);
 var _fixedHeader = require('../../node_modules/sass-basis-layout/src/js/fixed-header.js');
 
 var _fixedHeader2 = _interopRequireDefault(_fixedHeader);
+
+var _overlayHeader = require('../../node_modules/sass-basis-layout/src/js/overlay-header.js');
+
+var _overlayHeader2 = _interopRequireDefault(_overlayHeader);
 
 var _menu = require('../../node_modules/sass-basis-menu/src/js/menu.js');
 
@@ -274,6 +388,7 @@ function _interopRequireDefault(obj) {
 
 new _drawer2.default();
 new _fixedHeader2.default();
+new _overlayHeader2.default();
 new _menu2.default();
 
-},{"../../node_modules/sass-basis-drawer/src/js/drawer.js":1,"../../node_modules/sass-basis-layout/src/js/fixed-header.js":2,"../../node_modules/sass-basis-menu/src/js/menu.js":3}]},{},[4]);
+},{"../../node_modules/sass-basis-drawer/src/js/drawer.js":1,"../../node_modules/sass-basis-layout/src/js/fixed-header.js":2,"../../node_modules/sass-basis-layout/src/js/overlay-header.js":3,"../../node_modules/sass-basis-menu/src/js/menu.js":4}]},{},[5]);
