@@ -42,7 +42,7 @@
   }
 
   &__title {
-    @include bs-font-size-line-height($bs-font-size);
+    @include bs-font-size-line-height($bs-base-font-size);
     font-weight: bold;
     margin: 0;
     padding: 0;

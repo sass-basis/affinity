@@ -1,6 +1,6 @@
 .p-site-branding {
   &__title {
-    @include bs-font-size-line-height($bs-font-size * 2);
+    @include bs-font-size-line-height($bs-base-font-size * 2);
     margin: 0;
   }
 }
