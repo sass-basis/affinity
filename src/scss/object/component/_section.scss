@@ -1,10 +1,10 @@
 .c-section {
-	border-top: 1px solid bs-lighter($bs-color-gray);
-	padding: ($bs-base-line-height * 2) 0;
+  border-top: 1px solid bs-lighter($bs-color-gray);
+  padding: ($bs-base-line-height * 2) 0;
 
-	&__title {
-		@include bs-font-size-line-height($bs-font-size * 1.5);
-		margin: 0;
-		@include bs-margin-bottom(1);
-	}
+  &__title {
+    @include bs-font-size-line-height($bs-font-size * 1.5);
+    margin: 0;
+    @include bs-margin-bottom(1);
+  }
 }

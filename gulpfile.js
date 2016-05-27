@@ -19,43 +19,43 @@ var browser_sync = require( 'browser-sync' );
  * ES6 to ES5
  */
 gulp.task('js', function() {
-	return browserify({
-		entries: 'src/js/app.js'
-	})
-	.transform('babelify', {presets: ['es2015']})
-	.bundle()
-	.pipe(source('app.js'))
-	.pipe(buffer())
-	.pipe(gulp.dest('assets/js/'));
+  return browserify({
+    entries: 'src/js/app.js'
+  })
+  .transform('babelify', {presets: ['es2015']})
+  .bundle()
+  .pipe(source('app.js'))
+  .pipe(buffer())
+  .pipe(gulp.dest('assets/js/'));
 } );
 
 /**
  * Sass to CSS
  */
 gulp.task('sass', function() {
-	return gulp.src('src/scss/**/*.scss')
-		.pipe(sass({
-			outputStyle: 'expanded'
-		}))
-		.pipe(gulp.dest('assets/css/'))
-		.pipe(postcss([autoprefixer({
-			browsers: ['last 2 versions'],
-			cascade: false
-		})]))
-		.pipe(gulp.dest('assets/css/'))
-		.pipe(postcss([cssnano()]))
-		.pipe(rename({
-			suffix: '.min'
-		}))
-		.pipe(gulp.dest('assets/css/'));
+  return gulp.src('src/scss/**/*.scss')
+    .pipe(sass({
+      outputStyle: 'expanded'
+    }))
+    .pipe(gulp.dest('assets/css/'))
+    .pipe(postcss([autoprefixer({
+      browsers: ['last 2 versions'],
+      cascade: false
+    })]))
+    .pipe(gulp.dest('assets/css/'))
+    .pipe(postcss([cssnano()]))
+    .pipe(rename({
+      suffix: '.min'
+    }))
+    .pipe(gulp.dest('assets/css/'));
 });
 
 /**
  * Auto Compile Sass.
  */
 gulp.task('watch', function() {
-	gulp.watch(['src/scss/**/*.scss'], ['sass']);
-	gulp.watch(['src/js/**.js'], ['js']);
+  gulp.watch(['src/scss/**/*.scss'], ['sass']);
+  gulp.watch(['src/js/**.js'], ['js']);
 });
 
 
@@ -63,30 +63,30 @@ gulp.task('watch', function() {
  * Browsersync
  */
 gulp.task('browsersync', function() {
-	browser_sync.init( {
-		server: {
-			baseDir: "./"
-		},
-		files: [
-			'./**.html',
-			'./assets/**'
-		]
-	});
+  browser_sync.init( {
+    server: {
+      baseDir: "./"
+    },
+    files: [
+      './**.html',
+      './assets/**'
+    ]
+  });
 });
 
 /**
  * Deploy GitHub Pages
  */
 gulp.task('deploy_gh_pages', ['build'], function() {
-	return gulp.src(
-				[
-					'./assets/**',
-					'./index.html',
-					'./*.md'
-				],
-				{base: './'}
-			)
-			.pipe(gulp.dest('gh-pages'));
+  return gulp.src(
+        [
+          './assets/**',
+          './index.html',
+          './*.md'
+        ],
+        {base: './'}
+      )
+      .pipe(gulp.dest('gh-pages'));
 });
 
 gulp.task('build', ['sass', 'js']);

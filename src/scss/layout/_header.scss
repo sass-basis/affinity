@@ -1,31 +1,31 @@
 .#{$bs-prefix}l-header {
-	transition: background-color $bs-transition-duration $bs-transition-function-timing,
-				color $bs-transition-duration $bs-transition-function-timing;
+  transition: background-color $bs-transition-duration $bs-transition-function-timing,
+        color $bs-transition-duration $bs-transition-function-timing;
 
-	&, a {
-		color: #fff;
-	}
+  &, a {
+    color: #fff;
+  }
 
-	&--is-scrolled {
-		background-color: rgba($bs-color-black, .8);
-	}
+  &--is-scrolled {
+    background-color: rgba($bs-color-black, .8);
+  }
 
-	> .#{$bs-prefix}c-container {
-		position: relative;
-	}
+  > .#{$bs-prefix}c-container {
+    position: relative;
+  }
 
-	.p-site-branding {
-		padding: ($bs-base-line-height / 2) 0;
-	}
+  .p-site-branding {
+    padding: ($bs-base-line-height / 2) 0;
+  }
 
-	.#{$bs-prefix}c-hamburger-btn {
-		position: absolute;
-		top: 50%;
-		right: $bs-base-line-height;
-		transform: translateY(-50%);
+  .#{$bs-prefix}c-hamburger-btn {
+    position: absolute;
+    top: 50%;
+    right: $bs-base-line-height;
+    transform: translateY(-50%);
 
-		&__bar {
-			background-color: #fff;
-		}
-	}
+    &__bar {
+      background-color: #fff;
+    }
+  }
 }

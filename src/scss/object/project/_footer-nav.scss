@@ -1,16 +1,16 @@
 .p-footer-nav {
-	&__list {
-		list-style: none;
-		margin: 0;
-		padding: 0;
-	}
+  &__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
 
-	&__item {
-		margin: 0;
-		padding: 0 0 ($bs-base-line-height / 2);
+  &__item {
+    margin: 0;
+    padding: 0 0 ($bs-base-line-height / 2);
 
-		a {
-			text-decoration: none;
-		}
-	}
+    a {
+      text-decoration: none;
+    }
+  }
 }
