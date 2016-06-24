@@ -2,7 +2,7 @@
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
-	value: true
+  value: true
 });
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -10,123 +10,113 @@ var _createClass = function () { function defineProperties(target, props) { for 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var BasisDrawer = function () {
-	function BasisDrawer(container, params) {
-		_classCallCheck(this, BasisDrawer);
+  function BasisDrawer(container, params) {
+    _classCallCheck(this, BasisDrawer);
 
-		if (!container) {
-			container = '._c-drawer';
-		}
-		if (!params) {
-			params = {};
-		}
-		this.params = params;
-		if (!this.params.drawer) {
-			this.params.drawer = '._c-drawer__body';
-		}
-		if (!this.params.btn) {
-			this.params.btn = '._c-drawer__btn';
-		}
-		if (!this.params.toggleSubmenus) {
-			this.params.toggleSubmenus = '._c-drawer__toggle';
-		}
+    if (!container) {
+      container = '._c-drawer';
+    }
 
-		this.container = document.querySelectorAll(container);
-		this.setListener();
-	}
+    this.params = this.setParams(params);
+    this.container = document.querySelectorAll(container);
+    this.setListener();
+  }
 
-	_createClass(BasisDrawer, [{
-		key: 'setListener',
-		value: function setListener() {
-			var _this = this;
+  _createClass(BasisDrawer, [{
+    key: 'setParams',
+    value: function setParams(params) {
+      if (!params) {
+        params = {};
+      }
+      if (!params.drawer) {
+        params.drawer = '._c-drawer__body';
+      }
+      if (!params.btn) {
+        params.btn = '._c-drawer__btn';
+      }
+      if (!params.toggleSubmenu) {
+        params.toggleSubmenu = '._c-drawer__toggle';
+      }
+      return params;
+    }
+  }, {
+    key: 'setListener',
+    value: function setListener() {
+      var _this = this;
 
-			var _loop = function _loop(i) {
-				var container = _this.container[i];
-				var drawer = container.querySelector(_this.params.drawer);
-				var btn = container.querySelector(_this.params.btn);
+      var _loop = function _loop(i) {
+        var container = _this.container[i];
+        var drawer = container.querySelector(_this.params.drawer);
+        var btn = container.querySelector(_this.params.btn);
 
-				container.addEventListener('click', function (event) {
-					_this.close(drawer);
-					btn.classList.remove('is-close');
-				}, false);
+        container.addEventListener('click', function (event) {
+          _this.close(drawer);
+          btn.classList.remove('is-close');
+        }, false);
 
-				drawer.addEventListener('click', function (event) {
-					event.stopPropagation();
-				}, false);
+        drawer.addEventListener('click', function (event) {
+          event.stopPropagation();
+        }, false);
 
-				btn.addEventListener('click', function (event) {
-					_this.toggleDrawer(drawer);
-					event.stopPropagation();
-				}, false);
+        btn.addEventListener('click', function (event) {
+          _this.toggle(drawer);
+          btn.classList.toggle('is-close');
+          event.stopPropagation();
+        }, false);
 
-				container.addEventListener('resize', function (event) {
-					_this.close(drawer);
-				}, false);
+        window.addEventListener('resize', function (event) {
+          _this.close(drawer);
+          btn.classList.remove('is-close');
+        }, false);
 
-				var has_submenus = drawer.querySelectorAll('[aria-expanded]');
+        var has_subitems = drawer.querySelectorAll('[aria-expanded]');
 
-				var _loop2 = function _loop2(_i) {
-					var toggleSubmenus = has_submenus[_i].querySelector(_this.params.toggleSubmenus);
-					toggleSubmenus.addEventListener('click', function (event) {
-						_this.toggleSubmenus(has_submenus[_i]);
-						event.stopPropagation();
-					}, false);
-				};
+        var _loop2 = function _loop2(_i) {
+          var toggleSubmenu = has_subitems[_i].querySelector(_this.params.toggleSubmenu);
+          if (toggleSubmenu) {
+            toggleSubmenu.addEventListener('click', function (event) {
+              _this.toggle(has_subitems[_i]);
+              event.stopPropagation();
+            }, false);
+          }
+        };
 
-				for (var _i = 0; _i < has_submenus.length; _i++) {
-					_loop2(_i);
-				}
-			};
+        for (var _i = 0; _i < has_subitems.length; _i++) {
+          _loop2(_i);
+        }
+      };
 
-			for (var i = 0; i < this.container.length; i++) {
-				_loop(i);
-			}
-		}
-	}, {
-		key: 'toggleDrawer',
-		value: function toggleDrawer(drawer) {
-			event.preventDefault();
-			for (var i = 0; i < this.container.length; i++) {
-				var _btn = this.container[i].querySelector(this.params.btn);
-				if (drawer.getAttribute('aria-expanded') === 'false') {
-					this.open(drawer);
-					_btn.classList.add('is-close');
-				} else {
-					this.close(drawer);
-					_btn.classList.remove('is-close');
-					var _has_submenus = drawer.querySelectorAll('[aria-expanded]');
-					for (var _i2 = 0; _i2 < _has_submenus.length; _i2++) {
-						this.close(_has_submenus[_i2]);
-					}
-				}
-			}
-		}
-	}, {
-		key: 'toggleSubmenus',
-		value: function toggleSubmenus(submenus) {
-			event.preventDefault();
-			if (submenus.getAttribute('aria-expanded') === 'false') {
-				this.open(submenus);
-			} else {
-				this.close(submenus);
-				var _has_submenus2 = submenus.querySelectorAll('[aria-expanded]');
-				for (var i = 0; i < _has_submenus2.length; i++) {
-					this.close(_has_submenus2[i]);
-				}
-			}
-		}
-	}, {
-		key: 'open',
-		value: function open(drawer) {
-			drawer.setAttribute('aria-expanded', 'true');
-		}
-	}, {
-		key: 'close',
-		value: function close(drawer) {
-			drawer.setAttribute('aria-expanded', 'false');
-		}
-	}]);
+      for (var i = 0; i < this.container.length; i++) {
+        _loop(i);
+      }
+    }
+  }, {
+    key: 'toggle',
+    value: function toggle(drawer) {
+      event.preventDefault();
+      if (drawer.getAttribute('aria-expanded') === 'false') {
+        this.open(drawer);
+      } else {
+        this.close(drawer);
+      }
+    }
+  }, {
+    key: 'open',
+    value: function open(drawer) {
+      drawer.setAttribute('aria-expanded', 'true');
+    }
+  }, {
+    key: 'close',
+    value: function close(drawer) {
+      drawer.setAttribute('aria-expanded', 'false');
+      var has_subitems = drawer.querySelectorAll('[aria-expanded]');
+      for (var i = 0; i < has_subitems.length; i++) {
+        this.close(has_subitems[i]);
+      }
+    }
+  }]);
 
-	return BasisDrawer;
+  return BasisDrawer;
 }();
 
 exports.default = BasisDrawer;
@@ -297,7 +287,7 @@ exports.default = BasisOverlayHeader;
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
-	value: true
+  value: true
 });
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -305,60 +295,60 @@ var _createClass = function () { function defineProperties(target, props) { for 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var BasisMenu = function () {
-	function BasisMenu(container, params) {
-		_classCallCheck(this, BasisMenu);
+  function BasisMenu(container, params) {
+    _classCallCheck(this, BasisMenu);
 
-		if (!container) {
-			container = '._c-menu';
-		}
-		if (!params) {
-			params = {};
-		}
-		this.params = params;
+    if (!container) {
+      container = '._c-menu';
+    }
+    if (!params) {
+      params = {};
+    }
+    this.params = params;
 
-		this.container = document.querySelectorAll(container);
-		this.setListener();
-	}
+    this.container = document.querySelectorAll(container);
+    this.setListener();
+  }
 
-	_createClass(BasisMenu, [{
-		key: 'setListener',
-		value: function setListener() {
-			var _this = this;
+  _createClass(BasisMenu, [{
+    key: 'setListener',
+    value: function setListener() {
+      var _this = this;
 
-			for (var i = 0; i < this.container.length; i++) {
-				var container = this.container[i];
+      for (var i = 0; i < this.container.length; i++) {
+        var container = this.container[i];
 
-				var has_submenus = container.querySelectorAll('[aria-expanded]');
+        var has_submenus = container.querySelectorAll('[aria-expanded]');
 
-				var _loop = function _loop(_i) {
-					var item = has_submenus[_i];
-					item.addEventListener('mouseover', function (event) {
-						_this.open(item);
-					}, false);
+        var _loop = function _loop(_i) {
+          var item = has_submenus[_i];
+          item.addEventListener('mouseover', function (event) {
+            _this.open(item);
+          }, false);
 
-					item.addEventListener('mouseleave', function (event) {
-						_this.close(item);
-					}, false);
-				};
+          item.addEventListener('mouseleave', function (event) {
+            _this.close(item);
+          }, false);
+        };
 
-				for (var _i = 0; _i < has_submenus.length; _i++) {
-					_loop(_i);
-				}
-			}
-		}
-	}, {
-		key: 'open',
-		value: function open(item) {
-			item.setAttribute('aria-expanded', 'true');
-		}
-	}, {
-		key: 'close',
-		value: function close(item) {
-			item.setAttribute('aria-expanded', 'false');
-		}
-	}]);
+        for (var _i = 0; _i < has_submenus.length; _i++) {
+          _loop(_i);
+        }
+      }
+    }
+  }, {
+    key: 'open',
+    value: function open(item) {
+      item.setAttribute('aria-expanded', 'true');
+    }
+  }, {
+    key: 'close',
+    value: function close(item) {
+      item.setAttribute('aria-expanded', 'false');
+    }
+  }]);
 
-	return BasisMenu;
+  return BasisMenu;
 }();
 
 exports.default = BasisMenu;
