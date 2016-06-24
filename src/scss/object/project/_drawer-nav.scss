@@ -1,18 +1,18 @@
 .p-drawer-nav {
-  &__menus {
+  &__menu {
     list-style: none;
     margin: 0;
     padding: ($bs-base-line-height / 4) 0 0;
   }
 
-  &__submenus {
+  &__submenu {
     list-style: none;
     margin: 0;
     margin-right: $bs-base-line-height * -1;
     padding-left: 1em;
   }
 
-  &__menu, &__submenu {
+  &__item, &__subitem {
     position: relative;
 
     > a {
@@ -27,11 +27,11 @@
     }
   }
 
-  &__menu {
+  &__item {
     padding: ($bs-base-line-height / 2) $bs-base-line-height 0;
   }
 
-  &__submenu {
+  &__subitem {
     padding: ($bs-base-line-height / 2) 0 0;
   }
 

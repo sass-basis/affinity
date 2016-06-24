@@ -21,8 +21,12 @@
   .#{$bs-prefix}c-hamburger-btn {
     position: absolute;
     top: 50%;
-    right: $bs-base-line-height;
+    right: ($bs-base-line-height / 2);
     transform: translateY(-50%);
+
+    @include bs-bp-md-min() {
+      right: $bs-base-line-height;
+    }
 
     &__bar {
       background-color: #fff;
