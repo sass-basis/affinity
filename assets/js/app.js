@@ -234,10 +234,16 @@ var BasisOverlayHeader = function () {
         params = {};
       }
       if (!params.header) {
-        params.header = '._l-header--overlay';
+        params.header = '._l-header';
       }
-      if (!params.class) {
-        params.class = '_l-header--is-scrolled';
+      if (!params.class_sticky) {
+        params.class_sticky = '_l-header--sticky';
+      }
+      if (!params.class_overlay) {
+        params.class_overlay = '_l-header--overlay';
+      }
+      if (!params.class_scroll) {
+        params.class_scroll = '_l-header--is-scrolled';
       }
       return params;
     }
@@ -247,15 +253,34 @@ var BasisOverlayHeader = function () {
       var _this = this;
 
       var target = this.getScrollTarget();
-
       target.addEventListener('scroll', function (event) {
         var scroll = _this.getScrollTop();
-        if (scroll > 0) {
-          _this.header.classList.add(_this.params.class);
-        } else {
-          _this.header.classList.remove(_this.params.class);
-        }
+        _this.setClassForScroll(scroll);
+        _this.setClassForSticky(scroll);
       }, false);
+    }
+  }, {
+    key: 'setClassForScroll',
+    value: function setClassForScroll(scroll) {
+      if (scroll > 0) {
+        this.header.classList.add(this.params.class_scroll);
+      } else {
+        this.header.classList.remove(this.params.class_scroll);
+      }
+    }
+  }, {
+    key: 'setClassForSticky',
+    value: function setClassForSticky(scroll) {
+      if (this.header.classList.contains(this.params.class_sticky)) {
+        var header_height = this.header.offsetHeight;
+        if (scroll > 0) {
+          this.header.nextElementSibling.style.paddingTop = header_height + 'px';
+          this.header.classList.add(this.params.class_overlay);
+        } else {
+          this.header.nextElementSibling.style.paddingTop = 0;
+          this.header.classList.remove(this.params.class_overlay);
+        }
+      }
     }
   }, {
     key: 'getScrollTarget',
