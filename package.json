@@ -10,8 +10,8 @@
   },
   "devDependencies": {
     "browser-sync": "^2.13.0",
-    "autoprefixer": "^6.3.6",
-    "cssnano": "^3.7.1",
+    "autoprefixer": "^6.3.7",
+    "cssnano": "^3.7.3",
     "gulp": "^3.9.1",
     "gulp-postcss": "^6.1.1",
     "gulp-rename": "^1.2.2",
@@ -23,11 +23,11 @@
     "vinyl-source-stream": "^1.1.0"
   },
   "dependencies": {
-    "sass-basis": "^5.1.0",
+    "sass-basis": "^5.2.0",
     "sass-basis-card": "^0.1.2",
     "sass-basis-drawer": "^2.0.0",
     "sass-basis-hamburger-btn": "^0.1.2",
-    "sass-basis-layout": "^1.0.0",
+    "sass-basis-layout": "^1.1.0",
     "sass-basis-menu": "^0.2.2"
   },
   "browserify": {
